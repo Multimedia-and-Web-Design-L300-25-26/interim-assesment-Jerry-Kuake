@@ -4,11 +4,12 @@ const cors = require('cors');
 require('dotenv').config();
 
 console.log('Starting server...');
-console.log('MONGO_URI set:', !!process.env.MONGO_URI);
-console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('MONGO_URI starts with:', process.env.MONGO_URI?.slice(0, 20));
 
 const authRoutes = require('./routes/auth');
 const cryptoRoutes = require('./routes/crypto');
+
+console.log('Routes loaded');
 
 const app = express();
 
@@ -30,9 +31,11 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.log('Express error:', err.message);
   res.status(500).json({ message: 'Something went wrong' });
 });
+
+console.log('Connecting to MongoDB...');
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
@@ -40,6 +43,6 @@ mongoose.connect(process.env.MONGO_URI)
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   })
   .catch((err) => {
-    console.error('MongoDB connection failed:', err.message);
+    console.log('MongoDB connection failed:', err.message);
     process.exit(1);
   });
