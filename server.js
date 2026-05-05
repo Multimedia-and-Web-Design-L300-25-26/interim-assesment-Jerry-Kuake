@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
+console.log('Starting server...');
+console.log('MONGO_URI set:', !!process.env.MONGO_URI);
+console.log('NODE_ENV:', process.env.NODE_ENV);
+
 const authRoutes = require('./routes/auth');
 const cryptoRoutes = require('./routes/crypto');
 
@@ -36,6 +40,6 @@ mongoose.connect(process.env.MONGO_URI)
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   })
   .catch((err) => {
-    console.error(err.message);
+    console.error('MongoDB connection failed:', err.message);
     process.exit(1);
   });
