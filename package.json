@@ -17,6 +17,9 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "bugs": {
     "url": "https://github.com/Multimedia-and-Web-Design-L300-25-26/interim-assesment-Jerry-Kuake/issues"
   },
